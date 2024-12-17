@@ -7,3 +7,5 @@ class CoverageData:
 
     def __str__(self):
         return f'Number of tests executed: {self.num_of_tests}\nCoverage is {self.coverage}% \nExecution time is {self.exec_time}s\n'
+
+

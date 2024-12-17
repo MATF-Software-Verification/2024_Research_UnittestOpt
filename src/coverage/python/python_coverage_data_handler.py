@@ -10,6 +10,7 @@ from timeit import default_timer as timer
 from src.coverage.coverage_data import CoverageData
 from src.coverage.coverage_data_handler import CoverageDataHandler
 
+
 class PythonCoverageDataHandler(CoverageDataHandler):
     def collect_test_cases(self) -> List[str]:
         cwd = os.getcwd()
@@ -18,7 +19,7 @@ class PythonCoverageDataHandler(CoverageDataHandler):
         test_cases_collection_plugin = TestCasesCollectionPlugin()
         pytest.main(['--co', '-q', '-s'], plugins=[test_cases_collection_plugin])
         os.chdir(cwd)
-        return  test_cases_collection_plugin.collected
+        return test_cases_collection_plugin.collected
 
     def get_coverage_data(self) -> List[CoverageData]:
         coverage_data = []
@@ -29,23 +30,24 @@ class PythonCoverageDataHandler(CoverageDataHandler):
             cov = coverage.Coverage(data_file=coverage_data_file, messages=False)
             start = timer()
             cov.start()
-            pytest.main(['-x', self.project_path + '/' + test_case , '-q'])
+            pytest.main(['-x', self.project_path + '/' + test_case])
             cov.stop()
             cov.save()
             end = timer()
-            coverage_data.append(CoverageData(str(idx), round(cov.report(file=io.StringIO()), 2), round(end-start, 2), num_of_tests=1))
+            coverage_data.append(
+                CoverageData(str(idx), round(cov.report(file=io.StringIO()), 2), round(end - start, 2), num_of_tests=1))
         return coverage_data
 
-    def combine_coverage_data(self, coverage_data_list:List[CoverageData]) -> CoverageData:
+    def combine_coverage_data(self, coverage_data_list: List[CoverageData]) -> CoverageData:
         data_paths = list(map(lambda cd: self.coverage_data_files_path + 'data_file_' + cd.id, coverage_data_list))
         cov = coverage.Coverage(messages=False)
         cov.combine(data_paths=data_paths, keep=True)
         exec_time = sum(list(map(lambda cd: cd.exec_time, coverage_data_list)))
         id = '_'.join(list(map(lambda cd: cd.id, coverage_data_list)))
-        coverage_data = CoverageData(id=id, coverage=round(cov.report(file=io.StringIO()), 2), exec_time=round(exec_time, 2), num_of_tests=len(coverage_data_list))
+        coverage_data = CoverageData(id=id, coverage=round(cov.report(file=io.StringIO()), 2),
+                                     exec_time=round(exec_time, 2), num_of_tests=len(coverage_data_list))
         cov.erase()
         return coverage_data
-
 
 
 class TestCasesCollectionPlugin:
