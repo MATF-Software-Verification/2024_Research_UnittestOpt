@@ -13,7 +13,7 @@ genetic_config = GeneticConfig(mutation_factor=0.01, num_of_iterations=10, popul
 bayesian_config = BayesianConfig(seed=42, num_of_trials=50)
 optimisation_config = OptimisationConfig(coverage_importance=1, reduction_importance=0.2, efficiency_importance=0.1, min_coverage=0.45)
 
-optimisation = Optimisation(optimisation_type='bayesian', algorithm_config=bayesian_config, optimisation_config=optimisation_config)
+optimisation = Optimisation(optimisation_type='bruteforce', algorithm_config=bayesian_config, optimisation_config=optimisation_config)
 results = optimisation.run(project_path=r'C:\Users\pan3bg\Downloads\python-testing-101-master\python-testing-101-master\example-py-pytest')
 for res in results[:3]:
     print(res)
