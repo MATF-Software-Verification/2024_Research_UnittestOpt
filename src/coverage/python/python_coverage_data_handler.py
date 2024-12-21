@@ -1,11 +1,11 @@
 import io
 import os
+import sys
+from timeit import default_timer as timer
 from typing import List
 
 import coverage
 import pytest
-import sys
-from timeit import default_timer as timer
 
 from src.coverage.coverage_data import CoverageData
 from src.coverage.coverage_data_handler import CoverageDataHandler

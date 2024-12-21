@@ -19,5 +19,5 @@ class CoverageDataHandler(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def combine_coverage_data(self, coverage_data_list:List[CoverageData]) -> CoverageData:
+    def combine_coverage_data(self, coverage_data_list: List[CoverageData]) -> CoverageData:
         raise NotImplementedError

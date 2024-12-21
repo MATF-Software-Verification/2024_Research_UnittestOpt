@@ -1,9 +1,7 @@
-import functools
 from itertools import compress
 from typing import List
 
 import numpy as np
-import bisect
 
 from src.coverage.coverage_data import CoverageData
 from src.optimisation.algorithms.base_optimisation import BaseOptimisation
@@ -20,5 +18,3 @@ class RandomOptimisation(BaseOptimisation):
             results.append(coverage_data)
         results = sorted(results, key=self.objective_function, reverse=True)
         return results
-
-

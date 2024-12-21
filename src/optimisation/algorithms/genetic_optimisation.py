@@ -21,7 +21,8 @@ class Individual:
         self.coverage_data_handler = coverage_data_handler
         self.optimisation_config = optimisation_config
 
-        self.coverage_data = self.coverage_data_handler.combine_coverage_data(self.tests_subset) if len(self.tests_subset) > 1 else self.tests_subset[0]
+        self.coverage_data = self.coverage_data_handler.combine_coverage_data(self.tests_subset) if len(
+            self.tests_subset) > 1 else self.tests_subset[0]
         self.initial_tests_coverage_data = self.coverage_data_handler.combine_coverage_data(self.coverage_data_list)
         self.fitness = self.objective_function(self.coverage_data)
 
@@ -35,7 +36,8 @@ class Individual:
 class GeneticOptimisation(BaseOptimisation):
     def generate_init_population(self, population_size: int) -> List[Individual]:
         all_tests_indicators = np.ones(len(self.coverage_data_list), dtype=bool)
-        init_population = [Individual(self.coverage_data_list, all_tests_indicators, self.coverage_data_handler, self.optimisation_config)]
+        init_population = [Individual(self.coverage_data_list, all_tests_indicators, self.coverage_data_handler,
+                                      self.optimisation_config)]
 
         for i in range(0, population_size - 1):
             tests_subset_indicators = np.random.choice([False, True], size=len(self.coverage_data_list))
@@ -47,7 +49,7 @@ class GeneticOptimisation(BaseOptimisation):
     def selection(self, population):
         return population[np.random.randint(len(population))]
 
-    def crossover(self, parent_1: Individual, parent_2: Individual) -> Tuple[Individual,Individual]:
+    def crossover(self, parent_1: Individual, parent_2: Individual) -> Tuple[Individual, Individual]:
         child_1_indicators = []
         child_2_indicators = []
         while not any(child_1_indicators) and not any(child_2_indicators):
@@ -58,8 +60,10 @@ class GeneticOptimisation(BaseOptimisation):
                 else:
                     child_1_indicators.append(parent_2.tests_subset_indicators[i])
                     child_2_indicators.append(parent_1.tests_subset_indicators[i])
-        child_1 = Individual(self.coverage_data_list, child_1_indicators, self.coverage_data_handler, self.optimisation_config)
-        child_2 = Individual(self.coverage_data_list, child_2_indicators, self.coverage_data_handler, self.optimisation_config)
+        child_1 = Individual(self.coverage_data_list, child_1_indicators, self.coverage_data_handler,
+                             self.optimisation_config)
+        child_2 = Individual(self.coverage_data_list, child_2_indicators, self.coverage_data_handler,
+                             self.optimisation_config)
         return child_1, child_2
 
     def mutation(self, individual: Individual) -> Individual:
@@ -69,7 +73,8 @@ class GeneticOptimisation(BaseOptimisation):
                 if np.random.uniform() < self.algorithm_config.mutation_factor:
                     indicator = not indicator
                 mutated_indicators.append(indicator)
-        mutated_individual = Individual(self.coverage_data_list, mutated_indicators, self.coverage_data_handler, self.optimisation_config)
+        mutated_individual = Individual(self.coverage_data_list, mutated_indicators, self.coverage_data_handler,
+                                        self.optimisation_config)
         return mutated_individual
 
     def start_evolution(self) -> List[Individual]:

@@ -1,3 +1,4 @@
 coverage~=7.6.1
 numpy~=1.24.4
 optuna~=4.1.0
+customtkinter~=5.2.2
