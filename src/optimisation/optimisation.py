@@ -1,42 +1,34 @@
-from typing import Union
-
-from src.coverage.python.python_coverage_data_handler import PythonCoverageDataHandler
 from src.optimisation.algorithms.bayesian_optimisation import BayesianOptimisation
 from src.optimisation.algorithms.bruteforce_optimisation import BruteforceOptimisation
 from src.optimisation.algorithms.genetic_optimisation import GeneticOptimisation
 from src.optimisation.algorithms.random_optimisation import RandomOptimisation
-from src.optimisation.configs.genetic_config import GeneticConfig
+from src.optimisation.configs.algorithm_config import AlgorithmConfig
 from src.optimisation.configs.optimisation_config import OptimisationConfig
+from src.optimisation.target_project import TargetProject
 
 
 class Optimisation:
-    def __init__(self, optimisation_type: Union['random', 'genetic', 'bayesian'],
-                 optimisation_config: OptimisationConfig, algorithm_config: Union[GeneticConfig]):
-        self.optimisation_type = optimisation_type
+    def __init__(self, target_project: TargetProject,
+                 optimisation_config: OptimisationConfig, algorithm_config: AlgorithmConfig):
+        self.target_project = target_project
         self.optimisation_config = optimisation_config
         self.algorithm_config = algorithm_config
 
-    def run(self, project_path):
-        coverage_data_handler = PythonCoverageDataHandler(project_path=project_path)
-        coverage_data_list = coverage_data_handler.get_coverage_data()
-        if self.optimisation_type == 'random':
-            optimisation = RandomOptimisation(coverage_data_list=coverage_data_list,
-                                              coverage_data_handler=coverage_data_handler,
+    def run(self):
+        if self.optimisation_config.optimisation_type == 'random':
+            optimisation = RandomOptimisation(target_project=self.target_project,
                                               algorithm_config=self.algorithm_config,
                                               optimisation_config=self.optimisation_config)
-        elif self.optimisation_type == 'genetic':
-            optimisation = GeneticOptimisation(coverage_data_list=coverage_data_list,
-                                               coverage_data_handler=coverage_data_handler,
+        elif self.optimisation_config.optimisation_type == 'genetic':
+            optimisation = GeneticOptimisation(target_project=self.target_project,
                                                algorithm_config=self.algorithm_config,
                                                optimisation_config=self.optimisation_config)
-        elif self.optimisation_type == 'bayesian':
-            optimisation = BayesianOptimisation(coverage_data_list=coverage_data_list,
-                                                coverage_data_handler=coverage_data_handler,
+        elif self.optimisation_config.optimisation_type == 'bayesian':
+            optimisation = BayesianOptimisation(target_project=self.target_project,
                                                 algorithm_config=self.algorithm_config,
                                                 optimisation_config=self.optimisation_config)
-        elif self.optimisation_type == 'bruteforce':
-            optimisation = BruteforceOptimisation(coverage_data_list=coverage_data_list,
-                                                  coverage_data_handler=coverage_data_handler,
+        elif self.optimisation_config.optimisation_type == 'bruteforce':
+            optimisation = BruteforceOptimisation(target_project=self.target_project,
                                                   algorithm_config=None,
                                                   optimisation_config=self.optimisation_config)
         else:

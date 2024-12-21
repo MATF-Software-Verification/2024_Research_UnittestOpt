@@ -1,22 +1,20 @@
 from abc import ABC, abstractmethod
-from typing import List, Union
+from typing import List
 
 from src.coverage.coverage_data import CoverageData
-from src.coverage.coverage_data_handler import CoverageDataHandler
-from src.optimisation.configs.bayesian_config import BayesianConfig
-from src.optimisation.configs.genetic_config import GeneticConfig
+from src.optimisation.configs.algorithm_config import AlgorithmConfig
 from src.optimisation.configs.optimisation_config import OptimisationConfig
-from src.optimisation.configs.random_config import RandomConfig
+from src.optimisation.target_project import TargetProject
 
 
 class BaseOptimisation(ABC):
-    def __init__(self, coverage_data_list: List[CoverageData], coverage_data_handler: CoverageDataHandler,
-                 algorithm_config: Union[GeneticConfig, RandomConfig, BayesianConfig],
+    def __init__(self, target_project: TargetProject,
+                 algorithm_config: AlgorithmConfig,
                  optimisation_config: OptimisationConfig):
         super().__init__()
-        self.coverage_data_list = coverage_data_list
-        self.coverage_data_handler = coverage_data_handler
-        self.initial_tests_coverage_data = coverage_data_handler.combine_coverage_data(self.coverage_data_list)
+        self.coverage_data_list = target_project.coverage_data_list
+        self.coverage_data_handler = target_project.coverage_data_handler
+        self.initial_coverage_data = target_project.initial_coverage_data
         self.algorithm_config = algorithm_config
         self.optimisation_config = optimisation_config
 
@@ -25,9 +23,9 @@ class BaseOptimisation(ABC):
             return float('-inf')
 
         coverage_fitness = coverage_data.coverage * self.optimisation_config.coverage_importance
-        reduction_fitness = (self.initial_tests_coverage_data.num_of_tests - coverage_data.num_of_tests) \
+        reduction_fitness = (self.initial_coverage_data.num_of_tests - coverage_data.num_of_tests) \
                             * self.optimisation_config.reduction_importance
-        efficiency_fitness = (self.initial_tests_coverage_data.exec_time / coverage_data.exec_time) \
+        efficiency_fitness = (self.initial_coverage_data.exec_time / coverage_data.exec_time) \
                              * self.optimisation_config.efficiency_importance
 
         return coverage_fitness + reduction_fitness + efficiency_fitness
