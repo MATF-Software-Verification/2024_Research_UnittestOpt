@@ -4,7 +4,7 @@ from typing import List
 from src.coverage.coverage_data import CoverageData
 from src.optimisation.configs.algorithm_config import AlgorithmConfig
 from src.optimisation.configs.optimisation_config import OptimisationConfig
-from src.optimisation.target_project import TargetProject
+from src.project.target_project import TargetProject
 
 
 class BaseOptimisation(ABC):

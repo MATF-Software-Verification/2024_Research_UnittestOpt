@@ -1,9 +1,6 @@
-import tkinter as tk
-
 import customtkinter
 
 from src.app.components.custom_component import CustomComponent
-from src.app.components.frame_title import FrameTitle
 from src.app.components.settings.bayesian_settings import BayesianSettings
 from src.app.components.settings.bruteforce_settings import BruteforceSettings
 from src.app.components.settings.genetic_settings import GeneticSettings
@@ -12,7 +9,7 @@ from src.optimisation.configs.algorithm_config import AlgorithmConfig
 
 
 class AlgorithmSettings(CustomComponent):
-    def __init__(self, root: customtkinter.CTk, algorithm: tk.StringVar):
+    def __init__(self, root: customtkinter.CTk, algorithm: str):
         self.bruteforce_settings = None
         self.bayesian_settings = None
         self.random_settings = None
@@ -22,14 +19,10 @@ class AlgorithmSettings(CustomComponent):
         super().__init__(root)
 
     def layout_elements(self, root: customtkinter.CTk):
-        self.frame = customtkinter.CTkFrame(root, bg_color='transparent', fg_color='transparent', border_color='grey',
-                                            border_width=2)
+        self.frame = customtkinter.CTkFrame(root, bg_color='transparent', fg_color='transparent')
         self.frame.grid_propagate(False)
         self.frame.grid_columnconfigure(0, weight=1)
-        self.frame.grid_rowconfigure((0, 1), weight=1)
-
-        title = FrameTitle(self.frame, text='ALGORITHM SETTINGS')
-        title.grid(row=0, column=0)
+        self.frame.grid_rowconfigure(0, weight=1)
 
         if self.algorithm == 'genetic':
             self.genetic_settings = GeneticSettings(self.frame)
@@ -44,7 +37,7 @@ class AlgorithmSettings(CustomComponent):
             self.bruteforce_settings = BruteforceSettings(self.frame)
             self.bruteforce_settings.grid(column=0, row=0, sticky='nswe')
         else:
-            raise NotImplementedError
+            pass
 
     def get_algorithm_config(self) -> AlgorithmConfig:
         if self.algorithm == 'genetic':

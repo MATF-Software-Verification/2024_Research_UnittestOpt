@@ -1,13 +1,15 @@
+from typing import Callable
+
 import customtkinter
 
 from src.app.components.custom_component import CustomComponent
 from src.app.components.frame_title import FrameTitle
 from src.optimisation.configs.optimisation_config import OptimisationConfig
-from src.optimisation.target_project import TargetProject
+from src.project.target_project import TargetProject
 
 
 class OptimisationSettings(CustomComponent):
-    def __init__(self, root: customtkinter.CTk):
+    def __init__(self, root: customtkinter.CTk, on_algorithm_change: Callable):
         self.frame = None
         self.min_coverage_slider = None
         self.optimisation_type = customtkinter.StringVar(value="genetic")
@@ -15,6 +17,7 @@ class OptimisationSettings(CustomComponent):
         self.reduction_importance = customtkinter.DoubleVar(value=0.2)
         self.efficiency_importance = customtkinter.DoubleVar(value=0.1)
         self.min_coverage = customtkinter.DoubleVar(value=0)
+        self.on_algorithm_change = on_algorithm_change
         super().__init__(root)
 
     def layout_elements(self, root: customtkinter.CTk):
@@ -71,8 +74,9 @@ class OptimisationSettings(CustomComponent):
         optimisation_label.grid(row=5, column=0)
 
         optimisation_type_input = customtkinter.CTkOptionMenu(self.frame,
-                                                              values=['random', 'genetic', 'bayesian', 'bruteforce'],
-                                                              variable=self.optimisation_type)
+                                                              values=['genetic', 'bayesian', 'random', 'bruteforce'],
+                                                              variable=self.optimisation_type,
+                                                              command=lambda val: self.on_algorithm_change(str(val)))
         optimisation_type_input.grid(row=5, column=2, padx=25)
 
     def get_optimisation_config(self) -> OptimisationConfig:

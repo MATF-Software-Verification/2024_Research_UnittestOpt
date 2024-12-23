@@ -13,8 +13,8 @@ class FrameTitle(CustomComponent):
 
     def layout_elements(self, root: customtkinter.CTk):
         font = customtkinter.CTkFont(size=15, weight='bold')
-        self.title = customtkinter.CTkLabel(root, text=self.text, height=7, font=font,
+        self.title = customtkinter.CTkLabel(root, text=self.text, font=font, height=10,
                                             text_color=("#3a7ebf", "#1f538d"))
 
-    def grid(self, sticky='we', **kwargs):
-        self.title.grid(**kwargs)
+    def grid(self, **kwargs):
+        self.title.grid(sticky='n', pady=10, padx=10, **kwargs)

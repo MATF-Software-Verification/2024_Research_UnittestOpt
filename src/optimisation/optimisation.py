@@ -4,7 +4,7 @@ from src.optimisation.algorithms.genetic_optimisation import GeneticOptimisation
 from src.optimisation.algorithms.random_optimisation import RandomOptimisation
 from src.optimisation.configs.algorithm_config import AlgorithmConfig
 from src.optimisation.configs.optimisation_config import OptimisationConfig
-from src.optimisation.target_project import TargetProject
+from src.project.target_project import TargetProject
 
 
 class Optimisation:

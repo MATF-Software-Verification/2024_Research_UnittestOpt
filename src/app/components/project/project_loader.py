@@ -6,7 +6,7 @@ import customtkinter
 
 from src.app.components.custom_component import CustomComponent
 from src.app.components.frame_title import FrameTitle
-from src.optimisation.target_project import TargetProject
+from src.project.target_project import TargetProject
 
 
 class ProjectLoader(CustomComponent):
