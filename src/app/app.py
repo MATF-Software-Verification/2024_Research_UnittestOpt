@@ -24,29 +24,31 @@ class App(customtkinter.CTk):
         left_frame.grid(column=0, row=0, sticky='nswe')
         left_frame.grid_columnconfigure(0, weight=1)
         left_frame.grid_propagate(False)
-        left_frame.grid_rowconfigure((0, 1), weight=1)
-        left_frame.grid_rowconfigure(2, weight=5)
+        left_frame.grid_rowconfigure((0, 1, 3), weight=1)
+        left_frame.grid_rowconfigure(2, weight=5, uniform='row')
 
         self.project_loader = ProjectLoader(root=left_frame, on_project_change=self.on_project_change)
         self.project_loader.grid(column=0, row=0, sticky='nswe', padx=5, pady=5)
 
         self.project_info = ProjectInfo(root=left_frame)
-        self.project_info.grid(column=0, row=1, sticky='nswe')
+        self.project_info.grid(column=0, row=1, sticky='nswe', padx=5, pady=5)
 
         self.settings = Settings(root=left_frame)
         self.settings.grid(column=0, row=2, sticky='nswe')
 
+        optimisation_button = customtkinter.CTkButton(left_frame, text='Start Optimisation',
+                                                      command=self.start_optimisation)
+        optimisation_button.grid(row=3, column=0)
+
         right_frame = customtkinter.CTkFrame(self, bg_color='transparent', fg_color='transparent')
         right_frame.grid(column=1, row=0, sticky='nswe')
         right_frame.grid_propagate(False)
-        left_frame.grid_columnconfigure(0, weight=1)
-        left_frame.grid_rowconfigure(0, weight=1)
-        optimisation_button = customtkinter.CTkButton(right_frame, text='Start Optimisation',
-                                                      command=self.start_optimisation)
-        optimisation_button.grid(row=0, column=0, sticky='we')
+        right_frame.grid_columnconfigure(0, weight=1)
+        right_frame.grid_rowconfigure(0, weight=1)
 
     def on_project_change(self):
         self.target_project = self.project_loader.get_target_project()
+        self.project_info.on_project_change(self.target_project)
         self.settings.on_project_change(self.target_project)
 
     def start_optimisation(self):

@@ -15,7 +15,7 @@ class OptimisationSettings(CustomComponent):
         self.min_coverage = customtkinter.DoubleVar(value=0)
         super().__init__(root)
 
-    def pack_elements(self, root: customtkinter.CTk):
+    def layout_elements(self, root: customtkinter.CTk):
 
         coverage_importance_slider = customtkinter.CTkSlider(root, from_=0, to=1, number_of_steps=100,
                                                              variable=self.coverage_importance)

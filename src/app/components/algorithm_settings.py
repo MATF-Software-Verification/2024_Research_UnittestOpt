@@ -11,7 +11,7 @@ class AlgorithmSettings(CustomComponent):
         self.algorithm = algorithm
         super().__init__(root)
 
-    def pack_elements(self, root: customtkinter.CTk):
+    def layout_elements(self, root: customtkinter.CTk):
         label = customtkinter.CTkLabel(root, textvariable=self.algorithm)
         label.pack()
 

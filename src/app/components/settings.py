@@ -12,7 +12,7 @@ class Settings(CustomComponent):
         self.algorithm_settings = None
         super().__init__(root)
 
-    def pack_elements(self, root: customtkinter.CTk):
+    def layout_elements(self, root: customtkinter.CTk):
         self.frame = customtkinter.CTkFrame(root, bg_color='transparent', fg_color='green')
         # optimisation_settings_frame = customtkinter.CTkFrame(frame)
         # optimisation_settings_frame.grid(row=0, column=0)
