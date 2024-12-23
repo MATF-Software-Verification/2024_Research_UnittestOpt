@@ -24,8 +24,8 @@ class App(customtkinter.CTk):
         left_frame.grid(column=0, row=0, sticky='nswe')
         left_frame.grid_columnconfigure(0, weight=1)
         left_frame.grid_propagate(False)
-        left_frame.grid_rowconfigure((0, 1, 3), weight=1)
-        left_frame.grid_rowconfigure(2, weight=5, uniform='row')
+        left_frame.grid_rowconfigure((0, 1, 3), weight=1, uniform='row')
+        left_frame.grid_rowconfigure(2, weight=4, uniform='row')
 
         self.project_loader = ProjectLoader(root=left_frame, on_project_change=self.on_project_change)
         self.project_loader.grid(column=0, row=0, sticky='nswe', padx=5, pady=5)

@@ -11,3 +11,7 @@ class CustomComponent(ABC):
     @abstractmethod
     def layout_elements(self, root: customtkinter.CTk):
         raise NotImplementedError
+
+    @abstractmethod
+    def grid(self, **kwargs):
+        raise NotImplementedError

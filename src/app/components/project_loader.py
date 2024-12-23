@@ -5,6 +5,7 @@ from typing import Callable
 import customtkinter
 
 from src.app.components.custom_component import CustomComponent
+from src.app.components.frame_title import FrameTitle
 from src.optimisation.target_project import TargetProject
 
 
@@ -53,10 +54,10 @@ class ProjectLoader(CustomComponent):
                                             border_width=2)
         self.frame.grid_propagate(False)
         self.frame.grid_columnconfigure((0, 1, 2), weight=1, uniform='column')
-        self.frame.grid_rowconfigure((0,1), weight=1)
+        self.frame.grid_rowconfigure((0, 1), weight=1)
 
-        title = customtkinter.CTkLabel(self.frame, text='PROJECT LOADER')
-        title.grid(row=0, column=0, columnspan=3, sticky='we', padx=10)
+        title = FrameTitle(self.frame, text='PROJECT LOADER')
+        title.grid(row=0, column=0, columnspan=3)
 
         select_project_button = customtkinter.CTkButton(self.frame, text="Load Project", command=self.select_project)
         select_project_button.grid(row=1, column=0, padx=25)
