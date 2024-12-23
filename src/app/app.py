@@ -1,8 +1,8 @@
 import customtkinter
 
-from src.app.components.project_info import ProjectInfo
-from src.app.components.project_loader import ProjectLoader
-from src.app.components.settings import Settings
+from src.app.components.project.project_info import ProjectInfo
+from src.app.components.project.project_loader import ProjectLoader
+from src.app.components.settings.settings import Settings
 from src.optimisation.optimisation import Optimisation
 
 
