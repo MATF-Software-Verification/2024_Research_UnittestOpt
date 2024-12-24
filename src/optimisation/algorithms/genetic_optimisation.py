@@ -1,5 +1,5 @@
 from itertools import compress
-from typing import List, Tuple
+from typing import List, Tuple, Callable
 
 import numpy as np
 
@@ -13,18 +13,20 @@ class Individual:
     def __init__(self, coverage_data_list: List[CoverageData],
                  tests_subset_indicators: List[int],
                  coverage_data_handler: CoverageDataHandler,
-                 optimisation_config: OptimisationConfig
+                 optimisation_config: OptimisationConfig,
+                 objective_function: Callable
                  ):
         self.coverage_data_list = coverage_data_list
         self.tests_subset_indicators = tests_subset_indicators
         self.tests_subset = list(compress(self.coverage_data_list, self.tests_subset_indicators))
         self.coverage_data_handler = coverage_data_handler
         self.optimisation_config = optimisation_config
+        self.objective_function = objective_function
 
         self.coverage_data = self.coverage_data_handler.combine_coverage_data(self.tests_subset) if len(
             self.tests_subset) > 1 else self.tests_subset[0]
         self.initial_tests_coverage_data = self.coverage_data_handler.combine_coverage_data(self.coverage_data_list)
-        self.fitness = self.objective_function(self.coverage_data)
+        self.fitness = self.objective_function(coverage_data=self.coverage_data)
 
     def __str__(self):
         return str(self.current_tests_subset)
@@ -37,12 +39,13 @@ class GeneticOptimisation(BaseOptimisation):
     def generate_init_population(self, population_size: int) -> List[Individual]:
         all_tests_indicators = np.ones(len(self.coverage_data_list), dtype=bool)
         init_population = [Individual(self.coverage_data_list, all_tests_indicators, self.coverage_data_handler,
-                                      self.optimisation_config)]
+                                      self.optimisation_config, self.objective_function)]
 
         for i in range(0, population_size - 1):
             tests_subset_indicators = np.random.choice([False, True], size=len(self.coverage_data_list))
             current_individual = Individual(self.coverage_data_list, tests_subset_indicators,
-                                            self.coverage_data_handler, self.optimisation_config)
+                                            self.coverage_data_handler, self.optimisation_config,
+                                            self.objective_function)
             init_population.append(current_individual)
         return init_population
 
@@ -61,9 +64,9 @@ class GeneticOptimisation(BaseOptimisation):
                     child_1_indicators.append(parent_2.tests_subset_indicators[i])
                     child_2_indicators.append(parent_1.tests_subset_indicators[i])
         child_1 = Individual(self.coverage_data_list, child_1_indicators, self.coverage_data_handler,
-                             self.optimisation_config)
+                             self.optimisation_config, self.objective_function)
         child_2 = Individual(self.coverage_data_list, child_2_indicators, self.coverage_data_handler,
-                             self.optimisation_config)
+                             self.optimisation_config, self.objective_function)
         return child_1, child_2
 
     def mutation(self, individual: Individual) -> Individual:
@@ -74,7 +77,7 @@ class GeneticOptimisation(BaseOptimisation):
                     indicator = not indicator
                 mutated_indicators.append(indicator)
         mutated_individual = Individual(self.coverage_data_list, mutated_indicators, self.coverage_data_handler,
-                                        self.optimisation_config)
+                                        self.optimisation_config, self.objective_function)
         return mutated_individual
 
     def start_evolution(self) -> List[Individual]:

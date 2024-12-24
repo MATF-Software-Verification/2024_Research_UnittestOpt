@@ -36,9 +36,9 @@ class App(customtkinter.CTk):
         self.settings = Settings(root=left_frame)
         self.settings.grid(column=0, row=2, sticky='nswe')
 
-        optimisation_button = customtkinter.CTkButton(left_frame, text='Start Optimisation',
-                                                      command=self.start_optimisation)
-        optimisation_button.grid(row=3, column=0)
+        self.optimisation_button = customtkinter.CTkButton(left_frame, text='Start Optimisation',
+                                                           command=self.start_optimisation, state='disabled')
+        self.optimisation_button.grid(row=3, column=0)
 
         right_frame = customtkinter.CTkFrame(self, bg_color='transparent', fg_color='transparent')
         right_frame.grid(column=1, row=0, sticky='nswe')
@@ -50,8 +50,14 @@ class App(customtkinter.CTk):
         self.target_project = self.project_loader.get_target_project()
         self.project_info.on_project_change(self.target_project)
         self.settings.on_project_change(self.target_project)
+        if self.target_project.valid_project:
+            self.optimisation_button.configure(state='normal')
+        else:
+            self.optimisation_button.configure(state='disabled')
 
     def start_optimisation(self):
         optimisation = Optimisation(target_project=self.target_project,
                                     optimisation_config=self.settings.get_optimisation_config(),
-                                    algorithm_config=self.algorithm_settings)
+                                    algorithm_config=self.settings.get_algorithm_config())
+        result = optimisation.run()
+        print(result)

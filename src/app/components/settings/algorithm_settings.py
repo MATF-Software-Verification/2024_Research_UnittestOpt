@@ -41,7 +41,7 @@ class AlgorithmSettings(CustomComponent):
 
     def get_algorithm_config(self) -> AlgorithmConfig:
         if self.algorithm == 'genetic':
-            return self.genetic_settings.get_generic_config()
+            return self.genetic_settings.get_genetic_config()
         elif self.algorithm == 'random':
             return self.random_settings.get_random_config()
         elif self.algorithm == 'bayesian':

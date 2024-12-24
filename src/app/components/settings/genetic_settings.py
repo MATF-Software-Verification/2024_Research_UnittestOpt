@@ -77,4 +77,4 @@ class GeneticSettings(CustomComponent):
                              num_of_iterations=self.num_of_iterations.get(),
                              elitism_factor=self.elitism_factor.get(),
                              mutation_factor=self.mutation_factor.get(),
-                             seed=self.random_seed.get())
+                             seed=int(self.random_seed.get()))

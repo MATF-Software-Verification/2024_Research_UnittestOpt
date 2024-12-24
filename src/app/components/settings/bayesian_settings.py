@@ -43,5 +43,5 @@ class BayesianSettings(CustomComponent):
         self.frame.grid(**kwargs)
 
     def get_bayesian_config(self) -> BayesianConfig:
-        return BayesianConfig(seed=self.random_seed.get(),
+        return BayesianConfig(seed=int(self.random_seed.get()),
                               num_of_trials=self.num_of_iterations.get())
