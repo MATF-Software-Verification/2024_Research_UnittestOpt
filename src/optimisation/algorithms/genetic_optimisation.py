@@ -100,5 +100,6 @@ class GeneticOptimisation(BaseOptimisation):
         return population
 
     def start_optimisation(self) -> List[CoverageData]:
+        np.random.seed(self.algorithm_config.seed)
         individuals = self.start_evolution()
         return list(map(lambda i: i.coverage_data, individuals))

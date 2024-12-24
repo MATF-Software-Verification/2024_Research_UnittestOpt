@@ -10,6 +10,7 @@ from src.optimisation.algorithms.base_optimisation import BaseOptimisation
 class RandomOptimisation(BaseOptimisation):
 
     def start_optimisation(self) -> List[CoverageData]:
+        np.random.seed(self.algorithm_config.seed)
         results = []
         for i in range(self.algorithm_config.num_of_trials):
             tests_subset_indicators = np.random.choice([True, False], p=[self.algorithm_config.test_inclusion_prob,

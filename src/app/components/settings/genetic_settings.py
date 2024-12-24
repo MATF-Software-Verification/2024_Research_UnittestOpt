@@ -12,6 +12,9 @@ class GeneticSettings(CustomComponent):
         self.population_size = customtkinter.IntVar(value=100)
         self.elitism_factor = customtkinter.DoubleVar(value=0.3)
         self.mutation_factor = customtkinter.DoubleVar(value=0.01)
+        self.random_seed = customtkinter.StringVar(value=42)
+        self.random_seed.trace('w',
+                               lambda *args: self.random_seed.set(''.join(filter(str.isdigit, self.random_seed.get()))))
         super().__init__(root)
 
     def layout_elements(self, root: customtkinter.CTk):
@@ -20,7 +23,7 @@ class GeneticSettings(CustomComponent):
         self.frame.grid_propagate(False)
         self.frame.grid_columnconfigure((0, 2), weight=4, uniform='column')
         self.frame.grid_columnconfigure(1, weight=1, uniform='column')
-        self.frame.grid_rowconfigure((0, 1, 2, 3, 4), weight=1, uniform='column')
+        self.frame.grid_rowconfigure((0, 1, 2, 3, 4, 5), weight=1, uniform='column')
 
         title = FrameTitle(self.frame, text='GENETIC OPTIMISATION SETTINGS')
         title.grid(row=0, column=0, columnspan=3)
@@ -61,6 +64,11 @@ class GeneticSettings(CustomComponent):
                                                          command=lambda x: self.mutation_factor.set(round(x, 3)))
         mutation_factor_slider.grid(row=4, column=2, padx=25)
 
+        random_seed_label = customtkinter.CTkLabel(self.frame, text='Random Seed: ')
+        random_seed_label.grid(row=5, column=0)
+        random_seed_input = customtkinter.CTkEntry(self.frame, textvariable=self.random_seed)
+        random_seed_input.grid(row=5, column=2, padx=25)
+
     def grid(self, **kwargs):
         self.frame.grid(**kwargs)
 
@@ -68,4 +76,5 @@ class GeneticSettings(CustomComponent):
         return GeneticConfig(population_size=self.population_size.get(),
                              num_of_iterations=self.num_of_iterations.get(),
                              elitism_factor=self.elitism_factor.get(),
-                             mutation_factor=self.mutation_factor.get())
+                             mutation_factor=self.mutation_factor.get(),
+                             seed=self.random_seed.get())

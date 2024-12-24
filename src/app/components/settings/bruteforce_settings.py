@@ -19,6 +19,9 @@ class BruteforceSettings(CustomComponent):
         title = FrameTitle(self.frame, text='BRUTEFORCE OPTIMISATION SETTINGS')
         title.grid(row=0, column=0)
 
+        label = customtkinter.CTkLabel(self.frame, text='This can take a while to finish!')
+        label.grid(row=1, column=0)
+
     def grid(self, **kwargs):
         self.frame.grid(**kwargs)
 
