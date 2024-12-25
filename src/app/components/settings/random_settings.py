@@ -53,6 +53,6 @@ class RandomSettings(CustomComponent):
         self.frame.grid(**kwargs)
 
     def get_random_config(self) -> RandomConfig:
-        return RandomConfig(seed=int(self.random_seed),
-                            num_of_trials=self.num_of_iterations,
-                            test_inclusion_prob=self.inclusion_prob)
+        return RandomConfig(seed=int(self.random_seed.get()),
+                            num_of_trials=self.num_of_iterations.get(),
+                            test_inclusion_prob=self.inclusion_prob.get())

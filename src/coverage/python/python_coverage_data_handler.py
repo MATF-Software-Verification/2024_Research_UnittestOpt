@@ -39,14 +39,20 @@ class PythonCoverageDataHandler(CoverageDataHandler):
         return coverage_data
 
     def combine_coverage_data(self, coverage_data_list: List[CoverageData]) -> CoverageData:
-        data_paths = list(map(lambda cd: self.coverage_data_files_path + 'data_file_' + cd.id, coverage_data_list))
-        cov = coverage.Coverage(messages=False)
-        cov.combine(data_paths=data_paths, keep=True)
-        exec_time = sum(list(map(lambda cd: cd.exec_time, coverage_data_list)))
-        id = '_'.join(list(map(lambda cd: cd.id, coverage_data_list)))
-        coverage_data = CoverageData(id=id, coverage=round(cov.report(file=io.StringIO()), 2),
-                                     exec_time=round(exec_time, 2), num_of_tests=len(coverage_data_list))
-        cov.erase()
+        if len(coverage_data_list) == 0:
+            coverage_data = CoverageData(id='empty', coverage=0,
+                                         exec_time=float('inf'), num_of_tests=0)
+        elif len(coverage_data_list) == 1:
+            coverage_data = coverage_data_list.pop()
+        else:
+            data_paths = list(map(lambda cd: self.coverage_data_files_path + 'data_file_' + cd.id, coverage_data_list))
+            cov = coverage.Coverage(messages=False)
+            cov.combine(data_paths=data_paths, keep=True)
+            exec_time = sum(list(map(lambda cd: cd.exec_time, coverage_data_list)))
+            id = '_'.join(list(map(lambda cd: cd.id, coverage_data_list)))
+            coverage_data = CoverageData(id=id, coverage=round(cov.report(file=io.StringIO()), 2),
+                                         exec_time=round(exec_time, 2), num_of_tests=len(coverage_data_list))
+            cov.erase()
         return coverage_data
 
 
