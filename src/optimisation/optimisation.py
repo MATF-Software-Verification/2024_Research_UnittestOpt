@@ -4,6 +4,7 @@ from src.optimisation.algorithms.genetic_optimisation import GeneticOptimisation
 from src.optimisation.algorithms.random_optimisation import RandomOptimisation
 from src.optimisation.configs.algorithm_config import AlgorithmConfig
 from src.optimisation.configs.optimisation_config import OptimisationConfig
+from src.optimisation.optimisation_report import OptimisationReport
 from src.project.target_project import TargetProject
 
 
@@ -14,7 +15,7 @@ class Optimisation:
         self.optimisation_config = optimisation_config
         self.algorithm_config = algorithm_config
 
-    def run(self):
+    def run(self) -> OptimisationReport:
         if self.optimisation_config.optimisation_type == 'random':
             optimisation = RandomOptimisation(target_project=self.target_project,
                                               algorithm_config=self.algorithm_config,
@@ -35,4 +36,4 @@ class Optimisation:
             raise NotImplementedError
 
         results = optimisation.start_optimisation()
-        return results
+        return OptimisationReport()
