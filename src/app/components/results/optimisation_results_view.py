@@ -5,8 +5,8 @@ import customtkinter
 from src.app.components.custom_component import CustomComponent
 from src.app.components.frame_title import FrameTitle
 from src.app.components.results.optimisation_duration_info import OptimisationDurationInfo
-from src.app.components.results.optimisation_results_info import OptimisationResultsInfo
 from src.app.components.results.optimisation_summary_info import OptimisationSummaryInfo
+from src.app.components.results.optimisation_results_info import OptimisationResultsInfo
 from src.optimisation.optimisation_report import OptimisationReport
 
 
