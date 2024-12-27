@@ -26,8 +26,13 @@ class BayesianOptimisation(BaseOptimisation):
         study = optuna.create_study(sampler=sampler,
                                     direction=StudyDirection.MAXIMIZE,
                                     study_name="Unittest optimisation")
-        func = lambda trial: self.objective(trial)
-        study.optimize(func,
+        search_startpoint = {}
+        for i in range(len(self.coverage_data_list)):
+            search_startpoint['indicator_' + str(i)] = True
+        study.enqueue_trial(
+            search_startpoint
+        )
+        study.optimize(lambda trial: self.objective(trial),
                        n_trials=self.algorithm_config.num_of_trials)
         tests_subset_indicators = list(study.best_params.values())
         tests_subset = list(compress(self.coverage_data_list, tests_subset_indicators))
