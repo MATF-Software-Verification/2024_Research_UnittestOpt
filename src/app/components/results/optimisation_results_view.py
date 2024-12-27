@@ -6,6 +6,7 @@ from src.app.components.custom_component import CustomComponent
 from src.app.components.frame_title import FrameTitle
 from src.app.components.results.optimisation_duration_info import OptimisationDurationInfo
 from src.app.components.results.optimisation_results_info import OptimisationResultsInfo
+from src.app.components.results.optimisation_summary_info import OptimisationSummaryInfo
 from src.optimisation.optimisation_report import OptimisationReport
 
 
@@ -20,8 +21,9 @@ class OptimisationResultsView(CustomComponent):
                                             border_width=2)
         self.frame.grid_propagate(False)
         self.frame.grid_columnconfigure(0, weight=1)
-        self.frame.grid_rowconfigure((0, 1), weight=1, uniform='row')
-        self.frame.grid_rowconfigure((2, 3), weight=2, uniform='row')
+        self.frame.grid_rowconfigure(0, weight=1, uniform='row')
+        self.frame.grid_rowconfigure(1, weight=2, uniform='row')
+        self.frame.grid_rowconfigure((2, 3), weight=5, uniform='row')
 
         title = FrameTitle(self.frame, text='OPTIMISATION REPORT')
         title.grid(row=0, column=0)
@@ -32,6 +34,9 @@ class OptimisationResultsView(CustomComponent):
 
             optimisation_results_info = OptimisationResultsInfo(self.frame, self.optimisation_report)
             optimisation_results_info.grid(row=2, column=0, sticky='nswe', padx=10, pady=10)
+
+            optimisation_gain_info = OptimisationSummaryInfo(self.frame, self.optimisation_report)
+            optimisation_gain_info.grid(row=3, column=0, sticky='nswe', padx=10, pady=10)
         else:
             no_optimisation_data_label = customtkinter.CTkLabel(self.frame, text='No Optimisation Results Available')
             no_optimisation_data_label.grid(row=1, column=0, columnspan='6')

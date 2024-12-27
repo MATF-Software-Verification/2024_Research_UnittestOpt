@@ -10,10 +10,12 @@ class OptimisationReport:
         self.target_project = target_project
         self.optimisation_config = optimisation_config
         self.algorithm_config = algorithm_config
+        self.excluded_test_cases = list(
+            set(self.target_project.initial_coverage_data.test_cases) - set(self.coverage_data.test_cases))
+        self.exec_time_gain = self.target_project.initial_coverage_data.exec_time - self.coverage_data.exec_time
+        self.coverage_loss = self.target_project.initial_coverage_data.coverage - self.coverage_data.coverage
 
     def export(self, path):
-        excluded_test_cases = list(
-            set(self.target_project.initial_coverage_data.test_cases) - set(self.coverage_data.test_cases))
         report = {
             'project_path': self.target_project.project_path,
             'num_of_all_test_cases_detected': len(self.target_project.coverage_data_list),
@@ -29,10 +31,10 @@ class OptimisationReport:
             'optimal_test_cases': self.coverage_data.test_cases,
             'optimal_test_cases_coverage': self.coverage_data.coverage,
             'optimal_exec_time': self.coverage_data.exec_time,
-            'excluded_test_cases': excluded_test_cases,
-            'num_of_excluded_test_cases': len(excluded_test_cases),
-            'coverage_loss': self.target_project.initial_coverage_data.coverage - self.coverage_data.coverage,
-            'exec_time_gain': self.target_project.initial_coverage_data.exec_time - self.coverage_data.exec_time
+            'excluded_test_cases': self.excluded_test_cases,
+            'num_of_excluded_test_cases': len(self.excluded_test_cases),
+            'coverage_loss': self.coverage_loss,
+            'exec_time_gain': self.exec_time_gain
         }
 
         with open(path + '/optimisation_report_' + self.start_time.strftime("%Y_%m_%d-%I_%M_%S_%p") + '.json',
