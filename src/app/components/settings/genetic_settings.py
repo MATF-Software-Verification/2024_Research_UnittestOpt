@@ -32,7 +32,7 @@ class GeneticSettings(CustomComponent):
         num_of_iterations_label.grid(row=1, column=0)
         num_of_iterations_value_label = customtkinter.CTkLabel(self.frame, textvariable=self.num_of_iterations)
         num_of_iterations_value_label.grid(row=1, column=1)
-        num_of_iterations_slider = customtkinter.CTkSlider(self.frame, from_=0, to=500,
+        num_of_iterations_slider = customtkinter.CTkSlider(self.frame, from_=10, to=500,
                                                            variable=self.num_of_iterations,
                                                            command=lambda x: self.num_of_iterations.set(int(x)))
         num_of_iterations_slider.grid(row=1, column=2, padx=25)
@@ -41,7 +41,7 @@ class GeneticSettings(CustomComponent):
         population_size_label.grid(row=2, column=0)
         population_size_value_label = customtkinter.CTkLabel(self.frame, textvariable=self.population_size)
         population_size_value_label.grid(row=2, column=1)
-        population_size_slider = customtkinter.CTkSlider(self.frame, from_=0, to=300,
+        population_size_slider = customtkinter.CTkSlider(self.frame, from_=3, to=300,
                                                          variable=self.population_size,
                                                          command=lambda x: self.population_size.set(int(x)))
         population_size_slider.grid(row=2, column=2, padx=25)

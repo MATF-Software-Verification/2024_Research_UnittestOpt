@@ -5,7 +5,7 @@ class OptimisationReport:
     def __init__(self, start_time, end_time, coverage_data, target_project, optimisation_config, algorithm_config):
         self.start_time = start_time
         self.end_time = end_time
-        self.duration = round((self.end_time - self.start_time).total_seconds(), 2)
+        self.duration = self.end_time - self.start_time
         self.coverage_data = coverage_data
         self.target_project = target_project
         self.optimisation_config = optimisation_config
@@ -22,7 +22,7 @@ class OptimisationReport:
             'all_test_cases_coverage': self.target_project.initial_coverage_data.coverage,
             'optimisation_start_time': str(self.start_time),
             'optimisation_end_time': str(self.end_time),
-            'optimisation_duration': self.duration,
+            'optimisation_duration': str(self.duration),
             'optimisation_config': vars(self.optimisation_config),
             'algorithm_config': vars(self.algorithm_config),
             'num_of_optimal_test_cases': self.coverage_data.num_of_tests,
