@@ -83,7 +83,7 @@ class GeneticOptimisation(BaseOptimisation):
         num_of_executed_iterations = 0
         for iteration in range(0, self.algorithm_config.num_of_iterations):
             population.sort(reverse=True)
-            elit_population_size = int(self.algorithm_config.population_size * self.algorithm_config.elitism_factor)
+            elit_population_size = max(int(self.algorithm_config.population_size * self.algorithm_config.elitism_factor),1)
             for i in range(0, elit_population_size):
                 new_population[i] = population[i]
             for i in range(elit_population_size, self.algorithm_config.population_size - 1, 2):
