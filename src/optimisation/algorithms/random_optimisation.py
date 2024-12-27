@@ -19,5 +19,4 @@ class RandomOptimisation(BaseOptimisation):
             tests_subset = list(compress(self.coverage_data_list, tests_subset_indicators))
             coverage_data = self.coverage_data_handler.combine_coverage_data(tests_subset)
             results.append(coverage_data)
-        results = sorted(results, key=self.objective_function, reverse=True)
-        return results
+        return max(results, key=self.objective_function)

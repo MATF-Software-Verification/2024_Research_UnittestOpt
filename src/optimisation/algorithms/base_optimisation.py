@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import List
 
 from src.coverage.coverage_data import CoverageData
 from src.optimisation.configs.algorithm_config import AlgorithmConfig
@@ -31,5 +30,5 @@ class BaseOptimisation(ABC):
         return coverage_fitness + reduction_fitness + efficiency_fitness
 
     @abstractmethod
-    def start_optimisation(self) -> List[CoverageData]:
+    def start_optimisation(self) -> CoverageData:
         raise NotImplementedError

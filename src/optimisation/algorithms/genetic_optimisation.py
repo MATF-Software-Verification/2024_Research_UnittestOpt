@@ -96,10 +96,10 @@ class GeneticOptimisation(BaseOptimisation):
                 new_population[i + 1] = child_2
             population = new_population.copy()
             num_of_executed_iterations += 1
-        population.sort(reverse=True)
-        return population
+        return max(population)
 
     def start_optimisation(self) -> List[CoverageData]:
         np.random.seed(self.algorithm_config.seed)
-        individuals = self.start_evolution()
-        return list(map(lambda i: i.coverage_data, individuals))
+        best_individual = self.start_evolution()
+
+        return best_individual.coverage_data

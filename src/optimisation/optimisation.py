@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from src.optimisation.algorithms.bayesian_optimisation import BayesianOptimisation
 from src.optimisation.algorithms.bruteforce_optimisation import BruteforceOptimisation
 from src.optimisation.algorithms.genetic_optimisation import GeneticOptimisation
@@ -16,6 +18,7 @@ class Optimisation:
         self.algorithm_config = algorithm_config
 
     def run(self) -> OptimisationReport:
+        start_time = datetime.now()
         if self.optimisation_config.optimisation_type == 'random':
             optimisation = RandomOptimisation(target_project=self.target_project,
                                               algorithm_config=self.algorithm_config,
@@ -35,5 +38,8 @@ class Optimisation:
         else:
             raise NotImplementedError
 
-        results = optimisation.start_optimisation()
-        return OptimisationReport()
+        coverage_data = optimisation.start_optimisation()
+        end_time = datetime.now()
+        return OptimisationReport(start_time=start_time, end_time=end_time, coverage_data=coverage_data,
+                                  target_project=self.target_project, optimisation_config=self.optimisation_config,
+                                  algorithm_config=self.algorithm_config)

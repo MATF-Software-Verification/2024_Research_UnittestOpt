@@ -19,14 +19,22 @@ class App(customtkinter.CTk):
         self.grid_rowconfigure(0, weight=1)
 
         self.optimisation_process_handler = OptimisationProcessHandler(root=self,
-                                                                       on_optimisation_finished=self.on_optimisation_finished)
+                                                                       on_optimisation_finished=self.on_optimisation_finished,
+                                                                       on_project_change=self.on_project_change)
         self.optimisation_process_handler.grid(column=0, row=0, sticky='nswe')
 
         self.optimisation_results_handler = OptimisationResultsHandler(root=self,
                                                                        optimisation_report=self.optimisation_report)
         self.optimisation_results_handler.grid(column=1, row=0, sticky='nswe')
 
+    def on_project_change(self):
+        self.optimisation_report = None
+        self.optimisation_results_handler = OptimisationResultsHandler(root=self,
+                                                                       optimisation_report=self.optimisation_report)
+        self.optimisation_results_handler.grid(column=1, row=0, sticky='nswe')
+
     def on_optimisation_finished(self):
+        self.optimisation_report = self.optimisation_process_handler.get_optimisation_report()
         self.optimisation_results_handler = OptimisationResultsHandler(root=self,
                                                                        optimisation_report=self.optimisation_report)
         self.optimisation_results_handler.grid(column=1, row=0, sticky='nswe')

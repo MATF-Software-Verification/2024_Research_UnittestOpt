@@ -1,4 +1,5 @@
 import io
+import itertools
 import os
 import sys
 from timeit import default_timer as timer
@@ -35,13 +36,14 @@ class PythonCoverageDataHandler(CoverageDataHandler):
             cov.save()
             end = timer()
             coverage_data.append(
-                CoverageData(str(idx), round(cov.report(file=io.StringIO()), 2), round(end - start, 2), num_of_tests=1))
+                CoverageData(str(idx), round(cov.report(file=io.StringIO()), 2), round(end - start, 2),
+                             test_cases=[test_case]))
         return coverage_data
 
     def combine_coverage_data(self, coverage_data_list: List[CoverageData]) -> CoverageData:
         if len(coverage_data_list) == 0:
             coverage_data = CoverageData(id='empty', coverage=0,
-                                         exec_time=float('inf'), num_of_tests=0)
+                                         exec_time=float('inf'), test_cases=[])
         elif len(coverage_data_list) == 1:
             coverage_data = coverage_data_list.pop()
         else:
@@ -51,7 +53,8 @@ class PythonCoverageDataHandler(CoverageDataHandler):
             exec_time = sum(list(map(lambda cd: cd.exec_time, coverage_data_list)))
             id = '_'.join(list(map(lambda cd: cd.id, coverage_data_list)))
             coverage_data = CoverageData(id=id, coverage=round(cov.report(file=io.StringIO()), 2),
-                                         exec_time=round(exec_time, 2), num_of_tests=len(coverage_data_list))
+                                         exec_time=round(exec_time, 2), test_cases=list(
+                    itertools.chain.from_iterable(map(lambda el: el.test_cases, coverage_data_list))))
             cov.erase()
         return coverage_data
 

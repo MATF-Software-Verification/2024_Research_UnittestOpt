@@ -2,6 +2,7 @@ import customtkinter
 
 from src.app.components.custom_component import CustomComponent
 from src.app.components.frame_title import FrameTitle
+from src.optimisation.configs.bruteforce_config import BruteforceConfig
 
 
 class BruteforceSettings(CustomComponent):
@@ -25,5 +26,5 @@ class BruteforceSettings(CustomComponent):
     def grid(self, **kwargs):
         self.frame.grid(**kwargs)
 
-    def get_bruteforce_config(self) -> None:
-        return None
+    def get_bruteforce_config(self) -> BruteforceConfig:
+        return BruteforceConfig()

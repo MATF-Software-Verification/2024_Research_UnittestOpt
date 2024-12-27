@@ -13,7 +13,7 @@ from src.optimisation.optimisation_report import OptimisationReport
 
 
 class OptimisationProcessHandler(CustomComponent):
-    def __init__(self, root: customtkinter.CTk, on_optimisation_finished: Callable):
+    def __init__(self, root: customtkinter.CTk, on_optimisation_finished: Callable, on_project_change: Callable):
         self.optimisation_progressbar = None
         self.optimisation_controller_frame = None
         self.frame = None
@@ -24,6 +24,7 @@ class OptimisationProcessHandler(CustomComponent):
         self.project_loader = None
         self.project_info = None
         self.on_optimisation_finished = on_optimisation_finished
+        self.on_project_change_propagated = on_project_change
         super().__init__(root)
 
     def layout_elements(self, root: customtkinter.CTk):
@@ -75,6 +76,7 @@ class OptimisationProcessHandler(CustomComponent):
             self.optimisation_button.configure(state='normal')
         else:
             self.optimisation_button.configure(state='disabled')
+        self.on_project_change_propagated()
 
     def trigger_optimisation(self):
         self.optimisation_progressbar.grid(row=2, column=0, padx=25)

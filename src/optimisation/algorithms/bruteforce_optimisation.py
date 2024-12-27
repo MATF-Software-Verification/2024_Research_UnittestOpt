@@ -23,4 +23,4 @@ class BruteforceOptimisation(BaseOptimisation):
             if idx > 100:
                 break
 
-        return [current_best]
+        return current_best

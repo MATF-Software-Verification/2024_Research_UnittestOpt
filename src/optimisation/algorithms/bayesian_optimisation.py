@@ -32,4 +32,4 @@ class BayesianOptimisation(BaseOptimisation):
         tests_subset_indicators = list(study.best_params.values())
         tests_subset = list(compress(self.coverage_data_list, tests_subset_indicators))
         coverage_data = self.coverage_data_handler.combine_coverage_data(tests_subset)
-        return [coverage_data]
+        return coverage_data
