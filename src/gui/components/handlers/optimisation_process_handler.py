@@ -3,11 +3,11 @@ from typing import Callable
 
 import customtkinter
 
-from src.app.components.custom_component import CustomComponent
-from src.app.components.frame_title import FrameTitle
-from src.app.components.project.project_info import ProjectInfo
-from src.app.components.project.project_loader import ProjectLoader
-from src.app.components.settings.settings import Settings
+from src.gui.components.custom_component import CustomComponent
+from src.gui.components.frame_title import FrameTitle
+from src.gui.components.project.project_info import ProjectInfo
+from src.gui.components.project.project_loader import ProjectLoader
+from src.gui.components.settings.settings import Settings
 from src.optimisation.optimisation import Optimisation
 from src.optimisation.optimisation_report import OptimisationReport
 

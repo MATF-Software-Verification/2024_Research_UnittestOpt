@@ -26,7 +26,7 @@ class PythonCoverageDataHandler(CoverageDataHandler):
         coverage_data = []
         test_cases = self.collect_test_cases()
         sys.path.insert(0, self.project_path)
-        for idx, test_case in enumerate(test_cases):
+        for idx, test_case in enumerate(test_cases[:7]):
             coverage_data_file = self.coverage_data_files_path + 'data_file_' + str(idx)
             cov = coverage.Coverage(data_file=coverage_data_file, messages=False)
             start = timer()

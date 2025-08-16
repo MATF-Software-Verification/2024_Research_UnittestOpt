@@ -2,9 +2,9 @@ from typing import Union
 
 import customtkinter
 
-from src.app.components.custom_component import CustomComponent
-from src.app.components.results.optimisation_results_export import OptimisationResultsExport
-from src.app.components.results.optimisation_results_view import OptimisationResultsView
+from src.gui.components.custom_component import CustomComponent
+from src.gui.components.results.optimisation_results_export import OptimisationResultsExport
+from src.gui.components.results.optimisation_results_view import OptimisationResultsView
 from src.optimisation.optimisation_report import OptimisationReport
 
 

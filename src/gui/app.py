@@ -1,7 +1,7 @@
 import customtkinter
 
-from src.app.components.handlers.optimisation_process_handler import OptimisationProcessHandler
-from src.app.components.handlers.optimisation_results_handler import OptimisationResultsHandler
+from src.gui.components.handlers.optimisation_process_handler import OptimisationProcessHandler
+from src.gui.components.handlers.optimisation_results_handler import OptimisationResultsHandler
 
 
 class App(customtkinter.CTk):

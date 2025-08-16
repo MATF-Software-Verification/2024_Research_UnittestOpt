@@ -3,8 +3,8 @@ from typing import Union
 
 import customtkinter
 
-from src.app.components.custom_component import CustomComponent
-from src.app.components.frame_title import FrameTitle
+from src.gui.components.custom_component import CustomComponent
+from src.gui.components.frame_title import FrameTitle
 from src.optimisation.optimisation_report import OptimisationReport
 
 

@@ -1,6 +1,6 @@
 import customtkinter
 
-from src.app.components.custom_component import CustomComponent
+from src.gui.components.custom_component import CustomComponent
 
 
 class FrameTitle(CustomComponent):

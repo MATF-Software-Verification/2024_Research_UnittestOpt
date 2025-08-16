@@ -1,10 +1,10 @@
 import customtkinter
 
-from src.app.components.custom_component import CustomComponent
-from src.app.components.settings.bayesian_settings import BayesianSettings
-from src.app.components.settings.bruteforce_settings import BruteforceSettings
-from src.app.components.settings.genetic_settings import GeneticSettings
-from src.app.components.settings.random_settings import RandomSettings
+from src.gui.components.custom_component import CustomComponent
+from src.gui.components.settings.bayesian_settings import BayesianSettings
+from src.gui.components.settings.bruteforce_settings import BruteforceSettings
+from src.gui.components.settings.genetic_settings import GeneticSettings
+from src.gui.components.settings.random_settings import RandomSettings
 from src.optimisation.configs.algorithm_config import AlgorithmConfig
 
 

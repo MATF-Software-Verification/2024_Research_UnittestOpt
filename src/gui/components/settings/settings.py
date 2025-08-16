@@ -1,8 +1,8 @@
 import customtkinter
 
-from src.app.components.custom_component import CustomComponent
-from src.app.components.settings.algorithm_settings import AlgorithmSettings
-from src.app.components.settings.optimisation_settings import OptimisationSettings
+from src.gui.components.custom_component import CustomComponent
+from src.gui.components.settings.algorithm_settings import AlgorithmSettings
+from src.gui.components.settings.optimisation_settings import OptimisationSettings
 from src.optimisation.configs.algorithm_config import AlgorithmConfig
 from src.optimisation.configs.optimisation_config import OptimisationConfig
 from src.project.target_project import TargetProject

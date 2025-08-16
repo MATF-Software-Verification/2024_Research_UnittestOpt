@@ -18,7 +18,7 @@
 # for res in results[:3]:
 #     print(res)
 
-from src.app.app import App
+from src.gui.app import App
 
 app = App()
 app.mainloop()

@@ -2,8 +2,8 @@ from typing import Callable
 
 import customtkinter
 
-from src.app.components.custom_component import CustomComponent
-from src.app.components.frame_title import FrameTitle
+from src.gui.components.custom_component import CustomComponent
+from src.gui.components.frame_title import FrameTitle
 from src.optimisation.configs.optimisation_config import OptimisationConfig
 from src.project.target_project import TargetProject
 

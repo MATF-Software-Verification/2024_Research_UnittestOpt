@@ -55,7 +55,7 @@ class GeneticOptimisation(BaseOptimisation):
         child_1_indicators = []
         child_2_indicators = []
         for i in range(len(parent_1.tests_subset_indicators)):
-            if np.random.uniform() > self.algorithm_config.mutation_factor:
+            if np.random.uniform() > 0.5:
                 child_1_indicators.append(parent_1.tests_subset_indicators[i])
                 child_2_indicators.append(parent_2.tests_subset_indicators[i])
             else:
