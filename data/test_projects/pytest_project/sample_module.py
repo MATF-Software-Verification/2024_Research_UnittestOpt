@@ -1,13 +1,17 @@
-def multiply(a, b):
+def abs_divide(a, b):
     """
-    Multiply two numbers together and return the result.
+    Divides two numbers together and return absoulute value of the result.
 
     Args:
         a: First number
         b: Second number
 
     Returns:
-        Product of a and b
+        Absolut value of the division result or None if b is zero.
     """
-    return a * b
-
+    if b == 0:
+        return None
+    if (a < 0 and b < 0) or (a > 0 and b > 0):
+        return a / b
+    else:
+        return -(a / b)

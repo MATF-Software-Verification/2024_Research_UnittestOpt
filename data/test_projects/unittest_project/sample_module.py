@@ -1,16 +1,16 @@
-def add(a, b):
+def abs_divide(a, b):
     """
-    Add two numbers together and return the result.
+    Divides two numbers together and return absoulute value of the result.
 
     Args:
         a: First number
         b: Second number
 
     Returns:
-        Sum of a and b
+        Absolut value of the division result or None if b is zero.
     """
-
-    if (a == 0 and b == 0):
-        return 0
-    return a + b
-
+    if b == 0:
+        return None
+    if (a < 0 and b < 0) or (a > 0 and b > 0):
+        return a / b
+    return -(a / b)
