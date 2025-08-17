@@ -21,7 +21,7 @@
 
 ### 4. Pokretanje testova
 ```bash
-  TODO
+  pytest tests/ -v
 ```
 
 ## Upustvo za korišćenje
@@ -30,7 +30,7 @@
   python unittest_opt.py
 ```
 ### 2. Učitavanje projekta koji sadrži jedinične testove
-Klikom na dugme **Load Project** unutar sekcije **Project Loader** učitavaju se jedinični testovi iz selektovanog projekta/foldera. Ovaj projekat/folder treba da sadrži jedinične testove napisane u okviru `unittest`, `pytest` ili `doctest` biblioteke. Nakon selektovanja projekta, pronalaze se i pokreću svi testovi u njemu i sakupljaju se metapodaci o izvršenim testovima kao što su nazivi, broj, pokrivenost i vreme izvršavanja testova.
+Klikom na dugme **Load Project** unutar sekcije **Project Loader** učitavaju se jedinični testovi iz selektovanog projekta/foldera. Ovaj projekat/folder treba da sadrži jedinične testove napisane u okviru `unittest` ili `pytest` biblioteke. Nakon selektovanja projekta, pronalaze se i pokreću svi testovi u njemu i sakupljaju se metapodaci o izvršenim testovima kao što su nazivi, broj, pokrivenost i vreme izvršavanja testova.
 
 ### 3. Informacije o učitanom projektu
 Kada se učita projekat, unutar sekcije **Project Info** prikazuju se informacije o njemu:

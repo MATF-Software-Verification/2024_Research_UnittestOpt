@@ -49,7 +49,7 @@ U projektu ga koristimo samo za testiranje i proveru ispravnosti ostalih algorit
 
 ## Opis arhitekture sistema:
 Sistem je razvijen u Python programskom jeziku i koristi sledeće biblioteke:
-- `unittest`, `pytest`, `doctest`: Za pisanje i izvršavanje jediničnih testova.
+- `unittest`, `pytest`: Za pisanje i izvršavanje jediničnih testova.
 - `coverage`: Za merenje pokrivenosti koda testovima.
 - `optuna`: Za implementaciju Bajesovske optimizacije.
 - `numpy`, `pandas`: Za obradu podataka i numeričke operacije.

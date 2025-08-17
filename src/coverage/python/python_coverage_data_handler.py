@@ -26,9 +26,9 @@ class PythonCoverageDataHandler(CoverageDataHandler):
         coverage_data = []
         test_cases = self.collect_test_cases()
         sys.path.insert(0, self.project_path)
-        for idx, test_case in enumerate(test_cases[:7]):
+        for idx, test_case in enumerate(test_cases):
             coverage_data_file = self.coverage_data_files_path + 'data_file_' + str(idx)
-            cov = coverage.Coverage(data_file=coverage_data_file, messages=False)
+            cov = coverage.Coverage(data_file=coverage_data_file, messages=False, omit='test*')
             start = timer()
             cov.start()
             pytest.main(['-x', self.project_path + '/' + test_case])
@@ -45,7 +45,7 @@ class PythonCoverageDataHandler(CoverageDataHandler):
             coverage_data = CoverageData(id='empty', coverage=0,
                                          exec_time=float('inf'), test_cases=[])
         elif len(coverage_data_list) == 1:
-            coverage_data = coverage_data_list.pop()
+            coverage_data = coverage_data_list[0]
         else:
             data_paths = list(map(lambda cd: self.coverage_data_files_path + 'data_file_' + cd.id, coverage_data_list))
             cov = coverage.Coverage(messages=False)
