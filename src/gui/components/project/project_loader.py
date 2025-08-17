@@ -1,4 +1,4 @@
-import threading
+import threading, os, sys, gc
 from tkinter import messagebox
 from typing import Callable
 
@@ -22,6 +22,7 @@ class ProjectLoader(CustomComponent):
         super().__init__(root)
 
     def select_project(self):
+        self._clear_project_modules()
         self.target_project = None
         self.project_path = customtkinter.filedialog.askdirectory()
         self.selected_project_variable.set('Selected Project: ' + self.project_path.split('/')[-1])
@@ -72,3 +73,18 @@ class ProjectLoader(CustomComponent):
 
     def grid(self, **kwargs):
         self.frame.grid(**kwargs)
+
+    def _clear_project_modules(self):
+        if not self.project_path:
+            return
+
+        project_path_norm = os.path.normpath(self.project_path)
+
+        for module_name in list(sys.modules.keys()):
+            module = sys.modules[module_name]
+            if hasattr(module, '__file__') and module.__file__:
+                if project_path_norm in os.path.normpath(module.__file__):
+                        del sys.modules[module_name]
+
+        gc.collect()
+
