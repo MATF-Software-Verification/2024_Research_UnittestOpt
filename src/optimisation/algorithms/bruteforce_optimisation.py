@@ -9,7 +9,7 @@ from src.optimisation.algorithms.base_optimisation import BaseOptimisation
 
 class BruteforceOptimisation(BaseOptimisation):
 
-    def start_optimisation(self) -> List[CoverageData]:
+    def start_optimisation(self) -> CoverageData:
         tests_subset_indicators = np.ones(len(self.coverage_data_list), dtype=bool)
         tests_subset = list(itertools.compress(self.coverage_data_list, tests_subset_indicators))
         current_best = self.coverage_data_handler.combine_coverage_data(tests_subset)

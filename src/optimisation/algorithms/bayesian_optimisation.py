@@ -20,7 +20,7 @@ class BayesianOptimisation(BaseOptimisation):
         coverage_data = self.coverage_data_handler.combine_coverage_data(tests_subset)
         return self.objective_function(coverage_data)
 
-    def start_optimisation(self) -> List[CoverageData]:
+    def start_optimisation(self) -> CoverageData:
         sampler = TPESampler(seed=self.algorithm_config.seed, n_startup_trials=self.algorithm_config.num_of_trials // 3,
                              multivariate=True, group=True)
         study = optuna.create_study(sampler=sampler,

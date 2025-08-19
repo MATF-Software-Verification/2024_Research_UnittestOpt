@@ -24,6 +24,16 @@
   pytest tests/ -v
 ```
 
+### 5. Korišćenje primera realnog projekta
+Unutar foldera `data-example_project` nalazi se kompresovani primer realnog projekta koji sadrži jedinične testove.
+Projektaj je potrebno raspakovati u željenu lokaciju, a zatim instalirati potrebne biblioteke unutar njega. 
+```bash
+  cd 'PROJECT_PATH'
+  pip install -e .
+```
+Nakon instalacije biblioteka, projekat je spreman za korišćenje i može se učitati u aplikaciju klikom na dugme **Load Project** unutar sekcije **Project Loader**.
+
+
 ## Upustvo za korišćenje
 ### 1. Pokretanje programa
 ```bash

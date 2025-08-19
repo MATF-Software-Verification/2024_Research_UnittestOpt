@@ -23,20 +23,60 @@ class PythonCoverageDataHandler(CoverageDataHandler):
         return test_cases_collection_plugin.collected
 
     def get_coverage_data(self) -> List[CoverageData]:
+        # Clean up tmp folder before loading new tests
+        from src.utils.module_cache_manager import ModuleCacheManager
+        ModuleCacheManager.cleanup_tmp_folder()
+
         coverage_data = []
         test_cases = self.collect_test_cases()
         sys.path.insert(0, self.project_path)
+
         for idx, test_case in enumerate(test_cases):
             coverage_data_file = self.coverage_data_files_path + 'data_file_' + str(idx)
-            cov = coverage.Coverage(data_file=coverage_data_file, messages=False, omit='test*')
+
+            # Configure coverage to track source code properly
+            src_path = os.path.join(self.project_path, 'src')
+            if os.path.exists(src_path):
+                # Project has src/ directory (like attrs-main-subset)
+                cov = coverage.Coverage(
+                    data_file=coverage_data_file,
+                    messages=False,
+                    source=[src_path],
+                    omit=['*/tests/*', '*/test_*', '*conftest*']
+                )
+            else:
+                # Simple project structure (like test projects)
+                cov = coverage.Coverage(
+                    data_file=coverage_data_file,
+                    messages=False,
+                    source=[self.project_path],
+                    omit=['test*']
+                )
+
             start = timer()
             cov.start()
-            pytest.main(['-x', self.project_path + '/' + test_case])
+
+            # Change to project directory for test execution
+            old_cwd = os.getcwd()
+            try:
+                os.chdir(self.project_path)
+                pytest.main(['-x', test_case])
+            finally:
+                os.chdir(old_cwd)
+
             cov.stop()
             cov.save()
             end = timer()
+
+            # Handle case where no coverage data was collected
+            try:
+                coverage_percentage = cov.report(file=io.StringIO())
+            except coverage.exceptions.NoDataError:
+                # If no data collected, assign minimal coverage
+                coverage_percentage = 0.0
+
             coverage_data.append(
-                CoverageData(str(idx), round(cov.report(file=io.StringIO()), 2), round(end - start, 2),
+                CoverageData(str(idx), round(coverage_percentage, 2), round(end - start, 2),
                              test_cases=[test_case]))
         return coverage_data
 

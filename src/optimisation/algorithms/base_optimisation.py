@@ -27,7 +27,9 @@ class BaseOptimisation(ABC):
         efficiency_fitness = (self.initial_coverage_data.exec_time / coverage_data.exec_time) \
                              * self.optimisation_config.efficiency_importance
 
-        return coverage_fitness + reduction_fitness + efficiency_fitness
+        total_fitness = coverage_fitness + reduction_fitness + efficiency_fitness
+
+        return total_fitness
 
     @abstractmethod
     def start_optimisation(self) -> CoverageData:

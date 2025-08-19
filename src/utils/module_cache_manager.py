@@ -49,6 +49,10 @@ class ModuleCacheManager:
             if os.path.exists('.pytest_cache'):
                 shutil.rmtree('.pytest_cache', ignore_errors=True)
 
+            # Clear tmp directory if it exists
+            if os.path.exists('tmp'):
+                shutil.rmtree('tmp', ignore_errors=True)
+
             # Reset coverage module
             try:
                 import coverage
@@ -61,6 +65,18 @@ class ModuleCacheManager:
             print(f"Coverage cleanup warning: {e}")
 
     @staticmethod
+    def cleanup_tmp_folder():
+        """Clean up the tmp folder before loading new tests"""
+        tmp_dir = 'tmp'
+        if os.path.exists(tmp_dir):
+            try:
+                shutil.rmtree(tmp_dir)
+                print(f"Cleaned up existing tmp directory: {tmp_dir}")
+            except Exception as e:
+                print(f"Warning: Could not clean up {tmp_dir}: {e}")
+
+    @staticmethod
     def clear_all(path_patterns: List[str] = None):
+        ModuleCacheManager.cleanup_tmp_folder()
         ModuleCacheManager.clear_modules_by_path(path_patterns)
         ModuleCacheManager.clear_coverage_data()

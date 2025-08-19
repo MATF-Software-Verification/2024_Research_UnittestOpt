@@ -98,7 +98,7 @@ class GeneticOptimisation(BaseOptimisation):
             num_of_executed_iterations += 1
         return max(population)
 
-    def start_optimisation(self) -> List[CoverageData]:
+    def start_optimisation(self) -> CoverageData:
         np.random.seed(self.algorithm_config.seed)
         best_individual = self.start_evolution()
 
