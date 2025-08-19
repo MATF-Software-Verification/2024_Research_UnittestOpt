@@ -20,7 +20,5 @@ class BruteforceOptimisation(BaseOptimisation):
             coverage_data = self.coverage_data_handler.combine_coverage_data(tests_subset)
             if self.objective_function(coverage_data) > self.objective_function(current_best):
                 current_best = coverage_data
-            if idx > 100:
-                break
 
         return current_best

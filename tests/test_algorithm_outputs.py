@@ -15,7 +15,7 @@ from src.optimisation.configs.bruteforce_config import BruteforceConfig
 from src.optimisation.configs.genetic_config import GeneticConfig
 from src.utils.module_cache_manager import ModuleCacheManager
 
-@pytest.fixture(scope="class", autouse=True)
+@pytest.fixture(scope="function", autouse=True)
 def clear_modules_before_tests():
     test_dir = os.path.dirname(__file__)
     pytest_project_path = os.path.abspath(os.path.join(test_dir, '../data/test_projects/pytest_project'))
@@ -24,12 +24,12 @@ def clear_modules_before_tests():
     ModuleCacheManager.clear_all([pytest_project_path, unittest_project_path])
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="class")
 def target_project_pytest():
     data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/test_projects/pytest_project'))
     return TargetProject(data_path)
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="class")
 def target_project_unittest():
     data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/test_projects/unittest_project'))
     return TargetProject(data_path)
@@ -44,13 +44,13 @@ def optimisation_config():
         min_coverage=0.8
     )
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="class")
 def bruteforce_result_pytest(target_project_pytest, optimisation_config):
     bruteforce_config = BruteforceConfig()
     bruteforce = BruteforceOptimisation(target_project_pytest, bruteforce_config, optimisation_config)
     return bruteforce.start_optimisation()
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="class")
 def bruteforce_result_unittest(target_project_unittest, optimisation_config):
     bruteforce_config = BruteforceConfig()
     bruteforce = BruteforceOptimisation(target_project_unittest, bruteforce_config, optimisation_config)
